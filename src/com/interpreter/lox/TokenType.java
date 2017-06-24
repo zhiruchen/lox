@@ -1,8 +1,6 @@
 package com.interpreter.lox;
 
-/**
- * Created by zhiruchen on 2017/6/24.
- */
+
 public enum TokenType {
     // Single-character tokens.
     LEFT_PAREN, RIGHT_PAREN, LEFT_BRACE, RIGHT_BRACE,
