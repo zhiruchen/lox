@@ -1,6 +1,5 @@
 package com.interpreter.lox;
 
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -9,7 +8,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 
 public class Lox {
-    static boolean hasError = false;
+	static boolean hasError = false;
     public static void main(String[] args) throws IOException {
         if (args.length > 1) {
             System.out.println("jlox [usage]");
@@ -38,7 +37,7 @@ public class Lox {
     }
 
     private static void run(String source) {
-
+    	
     }
 
     static void error(int line, String message) {
@@ -51,5 +50,6 @@ public class Lox {
         );
         hasError = true;
     }
+
 
 }

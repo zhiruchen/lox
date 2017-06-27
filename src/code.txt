@@ -1,0 +1,19 @@
+print "Hello, World!"
+true;
+false;
+"abc"
+// hahahhahaha
+
+1234
+12.3456
+1 + 2;
+3 - 4;
+5 * 6;
+7 / 8;
+x = 1234;
+
+<
+>
+<=
+>=
+==
