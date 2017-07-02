@@ -13,6 +13,14 @@ public class Parser {
 	Parser(List<Token> tokens) {
 		this.tokens = tokens;
 	}
+	
+	Expr parse() {
+		try {
+			return expression();
+		} catch (ParseError error) {
+			return null;
+		}
+	}
 
 	private Expr expression() {
 		return equality();
@@ -44,7 +52,7 @@ public class Parser {
 	private Expr term() {
 		Expr expr = factor();
 
-		while (match(GREATER, GREATER_EQUAL, LESS, LESS_EQUAL)) {
+		while (match(MINUS, PLUS)) {
 			Token operator = previous();
 			Expr right = factor();
 			expr = new Expr.Binary(expr, operator, right);
@@ -55,7 +63,7 @@ public class Parser {
 	private Expr factor() {
 		Expr expr = unary();
 
-		while (match(GREATER, GREATER_EQUAL, LESS, LESS_EQUAL)) {
+		while (match(SLASH, STAR)) {
 			Token operator = previous();
 			Expr right = unary();
 			expr = new Expr.Binary(expr, operator, right);
@@ -102,6 +110,27 @@ public class Parser {
 	private ParseError error(Token token, String msg) {
 		Lox.error(token, msg);
 		return new ParseError();
+	}
+	
+	private void synchronize() {
+		advance();
+		while (!isAtEnd()) {
+			if (previous().type == SEMICOLON) return;
+			
+			switch (peek().type) {
+			case CLASS:
+			case FUN:
+			case VAR:
+			case FOR:
+			case IF:
+			case WHILE:
+			case PRINT:
+			case RETURN:
+				return;
+			}
+			
+			advance();
+		}
 	}
 
 	private boolean match(TokenType... tokenTypes) {
